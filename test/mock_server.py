@@ -2,8 +2,9 @@ import socket
 import threading
 import time
 
+
 class MockTelnetServer:
-    def __init__(self, host='localhost', port=23, image_path='sample_image.jpg'):
+    def __init__(self, host="localhost", port=23, image_path="input/sample_image.jpg"):
         self.host = host
         self.port = port
         self.image_path = image_path
@@ -17,22 +18,22 @@ class MockTelnetServer:
             # Send initial prompt
             client_socket.sendall(b"Welcome to Mock Camera\nlogin: ")
             time.sleep(1)
-            
+
             # Read username
             client_socket.recv(1024)
             client_socket.sendall(b"Password: ")
             time.sleep(1)
-            
+
             # Read password
             client_socket.recv(1024)
             client_socket.sendall(b"\n> ")
-            
+
             while True:
                 # Read command
                 command = client_socket.recv(1024).strip()
                 if command == b"GI":
                     # Read and send image data
-                    with open(self.image_path, 'rb') as image_file:
+                    with open(self.image_path, "rb") as image_file:
                         image_data = image_file.read()
                         client_socket.sendall(image_data + b"\n> ")
                 else:
@@ -47,13 +48,16 @@ class MockTelnetServer:
             while True:
                 client_socket, addr = self.server_socket.accept()
                 print(f"Connection from {addr}")
-                client_handler = threading.Thread(target=self.handle_client, args=(client_socket,))
+                client_handler = threading.Thread(
+                    target=self.handle_client, args=(client_socket,)
+                )
                 client_handler.start()
         except KeyboardInterrupt:
             print("Shutting down server")
         finally:
             self.server_socket.close()
 
+
 if __name__ == "__main__":
-    server = MockTelnetServer(image_path='sample_image.jpg')
+    server = MockTelnetServer(image_path="sample_image.jpg")
     server.start()

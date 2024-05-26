@@ -4,6 +4,7 @@ This project demonstrates how to perform OCR using Tesseract and OpenCV and how 
 
 ## Project Structure
 
+```
 project_root/
 │
 ├── modules/
@@ -16,6 +17,7 @@ project_root/
 │ ├── test_ocr_from_camera.py
 │
 └── README.md
+```
 
 ## Modules
 

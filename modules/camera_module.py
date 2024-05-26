@@ -1,6 +1,6 @@
 import cv2
 import csv
-from ocr_module import perform_ocr
+from modules.ocr_module import perform_ocr
 
 
 def capture_from_camera(output_csv="recognized_text.csv"):
